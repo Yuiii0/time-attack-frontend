@@ -13,6 +13,8 @@ export const store = configureStore({
   reducer: {
     modal: modalReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }),
 });
 
 export function ReduxProvider({ children }: { children: React.ReactNode }) {

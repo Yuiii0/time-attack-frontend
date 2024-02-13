@@ -7,8 +7,6 @@ import { Product } from "@/types/Product.type";
 function TotalProducts() {
   const { data: products, isLoading } = useQueryProducts();
 
-  console.log(products);
-
   if (isLoading)
     return (
       <section>
@@ -24,7 +22,7 @@ function TotalProducts() {
         {products?.map((product: Product) => (
           <li
             key={product.id}
-            className="w-56 mx-auto flex justify-center mb-8 "
+            className="w-56 mx-auto flex justify-center mb-8 gap-4 "
           >
             <ProductCard product={product} />
           </li>

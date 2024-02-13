@@ -5,9 +5,9 @@ import { ReactQueryProvider } from "./_contexts/react-query.context";
 function ProvidersLayout({ children }: { children: React.ReactNode }) {
   return (
     <ReactQueryProvider>
-      <ReduxProvider>
-        <AuthProvider>{children}</AuthProvider>
-      </ReduxProvider>
+      <AuthProvider>
+        <ReduxProvider>{children}</ReduxProvider>
+      </AuthProvider>
     </ReactQueryProvider>
   );
 }

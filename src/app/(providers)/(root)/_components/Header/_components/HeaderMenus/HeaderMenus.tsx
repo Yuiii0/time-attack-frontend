@@ -11,7 +11,6 @@ function HeaderMenus() {
   const handleClickLogIn = () => {
     const action = setModal(<LogInModal />);
     dispatch(action);
-    console.log("fhrmdls");
   };
 
   return (

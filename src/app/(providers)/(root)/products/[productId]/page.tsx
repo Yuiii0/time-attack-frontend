@@ -1,13 +1,30 @@
 "use client";
 
+import API from "@/api";
 import Page from "@/components/Page/Page";
 import { useQueryProduct } from "@/react-query/products/useQueryProducts";
 import { formatPrice } from "@/utils/formatPrice";
+import { useMutation } from "@tanstack/react-query";
 
 function ProductDetail(props: { params: { productId: string } }) {
   const productId = props.params.productId;
 
   const { data: product, isLoading } = useQueryProduct(productId);
+
+  const { mutate } = useMutation({
+    mutationFn: API.cart.addItemToCart,
+  });
+
+  const handleClickCartButton = async () => {
+    mutate(
+      { amount: 1, product },
+      {
+        onSuccess: () => {
+          alert("장바구니 담기 성공");
+        },
+      }
+    );
+  };
 
   if (isLoading)
     return (
@@ -17,8 +34,6 @@ function ProductDetail(props: { params: { productId: string } }) {
     );
   const originalPrice = formatPrice(product.originalPrice);
   const price = formatPrice(product.price);
-
-  console.log(product);
 
   return (
     <Page>
@@ -50,7 +65,10 @@ function ProductDetail(props: { params: { productId: string } }) {
               <div>{product.onlineStock}</div>
             </li>
           </ul>
-          <button className="bg-black text-white p-3 mt-5">
+          <button
+            className="bg-black text-white p-3 mt-5"
+            onClick={handleClickCartButton}
+          >
             장바구니 담기
           </button>
         </div>

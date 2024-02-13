@@ -1,5 +1,7 @@
 "use client";
 
+import API from "@/api";
+import { useMutation } from "@tanstack/react-query";
 import { useRef } from "react";
 
 function SignUpForm() {
@@ -7,12 +9,14 @@ function SignUpForm() {
   const pwInputRef = useRef<HTMLInputElement>(null);
   const pwConfirmInputRef = useRef<HTMLInputElement>(null);
 
-  //useMutation
+  const { mutate, isPending } = useMutation({
+    mutationFn: API.auth.signUp,
+  });
   //useAuth
 
   return (
     <form
-      className="max-w-sm w-full mx-auto flex flex-col gap-y-4 items-center "
+      className="max-w-sm w-full mx-auto flex flex-col gap-y-4 items-center focus:border-black outline-none transition border-slate-300 "
       onSubmit={(e) => {
         e.preventDefault();
 
@@ -23,7 +27,10 @@ function SignUpForm() {
         if (pw !== pwConfirm) return alert("비밀번호가 일치하지 않습니다");
         if (!email || !pw || !pwConfirm) return alert("모든 값을 입력해주세요");
 
-        //mutate
+        mutate(
+          { email, pw, pwConfirm },
+          { onSuccess: () => setIsLoggedIn(true) }
+        );
       }}
     >
       <div className="w-full">
@@ -31,7 +38,7 @@ function SignUpForm() {
           이메일
         </label>
         <input
-          className="border w-full p-2 rounded-md"
+          className="border w-full p-2 rounded-md  focus:border-black outline-none transition border-slate-300"
           type="text"
           id="email"
           ref={emailInputRef}
@@ -42,7 +49,7 @@ function SignUpForm() {
           비밀번호
         </label>
         <input
-          className="border w-full p-2  rounded-md"
+          className="border w-full p-2  rounded-md  focus:border-black outline-none transition border-slate-300"
           type="text"
           id="password"
           ref={pwInputRef}
@@ -53,7 +60,7 @@ function SignUpForm() {
           비밀번호 확인
         </label>
         <input
-          className="border w-full p-2 rounded-md"
+          className="border w-full p-2 rounded-md  focus:border-black outline-none transition border-slate-300"
           type="text"
           id="password2"
           ref={pwConfirmInputRef}
