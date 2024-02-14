@@ -19,7 +19,7 @@ async function addItemToCart(dto: CartDto) {
 async function removeItemFromCart(dto: CartDto) {
   const productId = dto.product.id;
   const url = `/cart/products/${productId}`;
-  const response = await coreclient.delete<CartData>(url, dto);
+  const response = await coreclient.delete<CartData>(url);
   const data = response.data;
   return data;
 }

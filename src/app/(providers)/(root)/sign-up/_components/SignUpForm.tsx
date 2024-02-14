@@ -27,10 +27,7 @@ function SignUpForm() {
         if (pw !== pwConfirm) return alert("비밀번호가 일치하지 않습니다");
         if (!email || !pw || !pwConfirm) return alert("모든 값을 입력해주세요");
 
-        mutate(
-          { email, pw, pwConfirm },
-          { onSuccess: () => setIsLoggedIn(true) }
-        );
+        // mutate({ email, pwConfirm }, { onSuccess: () => setIsLoggedIn(true) });
       }}
     >
       <div className="w-full">
